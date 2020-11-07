@@ -1,6 +1,6 @@
 # win2ray 
 本软件源码已贡献到公共领域并放弃版权，  
-源码可使用 [aardio（开发环境仅6.5MB）](http://www.aardio.com) 编译为exe文件。  仅生成单文件绿色EXE( 不需要.Net等任何外部运行库 ），**[点这里下载](https://raw.githubusercontent.com/vuvptch/win2ray-vless/master/release/win2ray-core.7z)** 解压即可直接使用( 体积非常小 - 仅 **740KB**，包含 v2ray-core 仅  **6.6MB** ）。
+源码可使用 [aardio（开发环境仅6.5MB）](http://www.aardio.com) 编译生成单文件绿色EXE( 不需要.Net等任何外部运行库 ），**[点这里下载](https://raw.githubusercontent.com/vuvptch/win2ray-vless/master/release/win2ray-core.7z)** 解压即可直接使用( 体积非常小 - 仅 **740KB**，包含 v2ray-core 仅  **6.6MB** ）。
 
 win2ray 是一个简洁稳定的 V2Ray(vmess/vless)、Shadowsocks、Trojan 通用客户端（Windows系统），可自动检测并连接访问速度最快的代理服务器。服务器连接异常时可以自动更换代理服务器 - 再也不用担心服务器抽风了。
 
