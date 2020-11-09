@@ -159,6 +159,48 @@ client.close();
 		
 serverMain.start(..config.core.default.inbounds[[1]][["listen"]] : "127.0.0.1",..config.core.default.inbounds[[1]][["pacPort"]] : 0 );
 
+
+import process.popen;
+updateGitConfigGithub = function(enableProxy){
+   if(enableProxy===null){
+   		enableProxy = (..config.proxy.mode === "pac") || (..config.proxy.mode === "proxy")
+   		
+   		if(!..config.proxy.enableGitConfigGithub){
+    		return;
+    	}
+   } 
+
+    var git;
+	if(enableProxy){
+		git = ..process.popen("git config --global http.https://github.com.proxy socks5://127.0.0.1:" + inboundPort.get())
+		
+		var path = ..io.getSpecial(0x28/*_CSIDL_PROFILE*/,".ssh/config")
+		var str = ..string.load(path):"";
+		if(..string.find(str,"Host\s+github.com" ) ){
+			if(!..string.find(str,"Host\s+github.com\s+ProxyCommand\s+connect\s+\-S\s+127\.0\.0\.1\:\d+ \-a none \%h \%p" )){
+				str = ..string.replace(str,"Host\s+github.com",'Host github.com\r\n    ProxyCommand connect -S 127.0.0.1:' + inboundPort.get() + ' -a none %h %p')
+			}
+		}
+		else {
+			str = str + '\r\n\r\nHost github.com\r\n    ProxyCommand connect -S 127.0.0.1:' + inboundPort.get() + ' -a none %h %p'
+		}
+		
+		..string.save(path,str)
+	}
+	else {
+		git = ..process.popen("git config --global --unset http.https://github.com.proxy")
+		var path = ..io.getSpecial(0x28/*_CSIDL_PROFILE*/,".ssh/config")
+		var str = ..string.load(path):"";
+		if(..string.find(str,"Host\s+github.com" ) ){
+			if(..string.find(str,"Host\s+github.com\s+ProxyCommand\s+connect\s+\-S\s+127\.0\.0\.1\:\d+ \-a none \%h \%p" )){
+				str = ..string.replace(str,"Host\s+github.com\s+ProxyCommand\s+connect\s+\-S\s+127\.0\.0\.1\:\d+ \-a none \%h \%p",'Host github.com')
+				..string.save(path,str)
+			}
+		}
+	} 
+}
+
+
 var prcsv2ray;
 restart = function(editor,outbound){
 	if(prcsv2ray){
@@ -169,8 +211,6 @@ restart = function(editor,outbound){
 	var corePath = getPath(editor.hwnd);
 	if(!corePath) return false,"启动失败,未找到v2ray.exe";
 
-
-	
 
 	..inet.conn.setProxy();
 	..v2ray.config.setOutbound(outbound);
@@ -192,6 +232,8 @@ restart = function(editor,outbound){
 	else {
 		..inet.conn.setProxy();
 	}
+	
+	updateGitConfigGithub();
 	return true;
 }
 
@@ -205,4 +247,7 @@ stop = function(){
 		serverMain.stop();
 		serverMain = null;
 	}
+	
+	..inet.conn.setProxy();
+   	updateGitConfigGithub(false);
 }

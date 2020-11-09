@@ -4,12 +4,12 @@
 
 win2ray 是一个简洁稳定的 V2Ray(vmess/vless)、Shadowsocks、Trojan 通用客户端（Windows系统），可自动检测并连接访问速度最快的代理服务器。服务器连接异常时可以自动更换代理服务器 - 再也不用担心服务器抽风了。
 
-<details>  <summary>免费VLESS服务器列表（ 复制vless分享链接后导入即可 ）</summary>  <pre>
+<details>  <summary>最新免费VLESS服务器列表（ 复制vless分享链接后导入即可 ）</summary>  <pre>
 vless://fab73d01-39bc-86d6-3c61-e6a76957d729@v.vulvpstech.xyz:443/?flow=xtls-rprx-direct&host=v.vulvpstech.xyz&tls=xtls#%E7%BE%8E%E5%9B%BD%E8%A5%BF%E9%9B%85%E5%9B%BE_XTLS%2FDirect
 vless://4b5f75e2-01ee-2a3b-3007-a4f8c26c75fb@v.vulvpstech.xyz:443/?host=v.vulvpstech.xyz&tls=tls#%E7%BE%8E%E5%9B%BD%E8%A5%BF%E9%9B%85%E5%9B%BE_TLS
 vless://4b5f75e2-01ee-2a3b-3007-a4f8c26c75fb@v.vulvpstech.xyz:443/?host=v.vulvpstech.xyz&network=ws&path=%2Fftyyws&sni=v.vulvpstech.xyz&tls=tls#%E7%BE%8E%E5%9B%BD%E8%A5%BF%E9%9B%85%E5%9B%BE_WSS
-vless://f5859dd8-95aa-6f5a-8d5a-0829d43b86e3@jp.vulvpstech.xyz:443/?flow=xtls-rprx-direct&host=jp.vulvpstech.xyz&tls=xtls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_XTLS%2FDirect
-vless://5a6c2d47-0c61-ac54-a4d4-c1fc314ea38e@jp.vulvpstech.xyz:443/?host=jp.vulvpstech.xyz&tls=tls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_TLS
+vless://5a6c2d47-0c61-ac54-a4d4-c1fc314ea38e@jp.vulvpstech.xyz:443/?flow=xtls-rprx-direct&host=jp.vulvpstech.xyz&tls=xtls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_XTLS%2FDirect
+vless://f5859dd8-95aa-6f5a-8d5a-0829d43b86e3@jp.vulvpstech.xyz:443/?host=jp.vulvpstech.xyz&tls=tls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_TLS
 vless://f5859dd8-95aa-6f5a-8d5a-0829d43b86e3@jp.vulvpstech.xyz:443/?host=jp.vulvpstech.xyz&network=ws&path=%2Fubdiws&sni=jp.vulvpstech.xyz&tls=tls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_WSS
 </pre></details>  
   

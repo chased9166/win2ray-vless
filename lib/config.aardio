@@ -20,6 +20,9 @@ namespace config {
 }
 
 if(!config.proxy.mode) config.proxy.mode = "pac";
+if(config.proxy.enableGitConfigGithub===null){
+	config.proxy.enableGitConfigGithub = true;
+}
 
 if(!config.core.default){
 	config.core.default =  {

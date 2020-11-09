@@ -14,7 +14,7 @@ import win.ui;
 /*DSG{{*/
 mainForm = win.form(text="win2ray";right=1019;bottom=679;bgcolor=15793151;border="none")
 mainForm.add(
-caption={cls="bkplus";text="win2ray 3.1";left=67;top=9;right=727;bottom=27;align="left";color=6052956;dl=1;dt=1;font=LOGFONT(h=-14);z=7};
+caption={cls="bkplus";text="win2ray 3.2";left=67;top=9;right=727;bottom=27;align="left";color=6052956;dl=1;dt=1;font=LOGFONT(h=-14);z=7};
 custom={cls="custom";left=83;top=40;right=1022;bottom=679;bgcolor=16777215;db=1;dl=1;dr=1;dt=1;z=4};
 logo={cls="bkplus";text='\uF1D9';left=35;top=7;right=64;bottom=32;color=3054125;dl=1;dt=1;font=LOGFONT(h=-18;name='FontAwesome');z=6};
 navBar={cls="bkplus";left=0;top=37;right=83;bottom=681;bgcolor=3442175;db=1;dl=1;dt=1;z=1};
@@ -79,10 +79,9 @@ mainForm.onMinimize = function(lParam){
 	return true; 
 }
 
-import inet.conn;
+import inet.conn; 
 mainForm.onDestroy = function(){
 	mainForm.tray.delete(); 
-	inet.conn.setProxy();
 }
 
 mainForm.onClose = function(hwnd,message,wParam,lParam){
@@ -103,12 +102,13 @@ mainForm.wndproc = {
 			
 			import inet.conn;
 			import v2ray.core;
-			var id = mainForm.popmenu.add('使用PAC自动代理',function(id){ 
-				config.proxy.mode = "pac";
-				inet.conn.setProxyAutoConfig(,v2ray.core.getPacUrl() );
-				publish("config.proxy.mode.changed");	
+			
+			var id = mainForm.popmenu.add('不使用代理',function(id){ 
+				config.proxy.mode = "direct";
+				inet.conn.setProxy();
+				publish("config.proxy.mode.changed");
 			});
-			mainForm.popmenu.check(id,config.proxy.mode=="pac",0/*_MF_BYCOMMAND*/);
+			mainForm.popmenu.check(id,config.proxy.mode=="direct",0/*_MF_BYCOMMAND*/);
 			
 			var id = mainForm.popmenu.add('使用全局代理',function(id){ 
 				config.proxy.mode = "proxy";
@@ -117,12 +117,19 @@ mainForm.wndproc = {
 			});
 			mainForm.popmenu.check(id,config.proxy.mode=="proxy",0/*_MF_BYCOMMAND*/);
 			
-			var id = mainForm.popmenu.add('不使用代理',function(id){ 
-				config.proxy.mode = "direct";
-				inet.conn.setProxy();
-				publish("config.proxy.mode.changed");
+			var id = mainForm.popmenu.add('使用PAC自动代理',function(id){ 
+				config.proxy.mode = "pac";
+				inet.conn.setProxyAutoConfig(,v2ray.core.getPacUrl() );
+				publish("config.proxy.mode.changed");	
 			});
-			mainForm.popmenu.check(id,config.proxy.mode=="direct",0/*_MF_BYCOMMAND*/);
+			mainForm.popmenu.check(id,config.proxy.mode=="pac",0/*_MF_BYCOMMAND*/);
+			
+			mainForm.popmenu.add();
+			
+			var id = mainForm.popmenu.add('编辑PAC配置',function(id){  
+				publish("showPacForm");	
+			});
+			
 			mainForm.popmenu.add();
 			
 			mainForm.popmenu.add('退出',function(id){ 

@@ -7,6 +7,7 @@ btnUpdate={cls="plus";text="保 存";left=457;top=603;right=560;bottom=639;align
 checkLan={cls="plus";text="允许来自局域网的连接";left=338;top=514;right=545;bottom=545;align="left";bgcolor=16777215;db=1;dl=1;font=LOGFONT(h=-16);iconStyle={align="left";font=LOGFONT(h=-16;name='FontAwesome')};iconText='\uF0C8';notify=1;textPadding={left=19};z=1};
 chkAutoPacPort={cls="plus";text="自动分配空闲PAC端口";left=432;top=365;right=653;bottom=396;align="left";bgcolor=16777215;db=1;dl=1;font=LOGFONT(h=-16);iconStyle={align="left";font=LOGFONT(h=-16;name='FontAwesome')};iconText='\uF0C8';notify=1;textPadding={left=19};z=5};
 chkAutoPort={cls="plus";text="自动分配空闲代理端口";left=432;top=305;right=642;bottom=336;align="left";bgcolor=16777215;db=1;dl=1;font=LOGFONT(h=-16);iconStyle={align="left";font=LOGFONT(h=-16;name='FontAwesome')};iconText='\uF0C8';notify=1;textPadding={left=19};z=6};
+chkEnableGitConfigGithub={cls="plus";text="设置 git 客户端启用 github.com 代理提速（支持https、ssh协议）";left=339;top=550;right=855;bottom=581;align="left";bgcolor=16777215;db=1;dl=1;font=LOGFONT(h=-16);iconStyle={align="left";font=LOGFONT(h=-16;name='FontAwesome')};iconText='\uF0C8';notify=1;textPadding={left=19};z=13};
 editLanPacUrl={cls="plus";left=342;top=465;right=756;bottom=489;align="left";bgcolor=16777215;border={bottom=1;color=-8355712};db=1;dl=1;editable="edit";font=LOGFONT(h=-16);textPadding={bottom=1};z=11};
 editPacPort={cls="plus";left=340;top=364;right=420;bottom=388;align="left";bgcolor=16777215;border={bottom=1;color=-8355712};db=1;dl=1;editable="edit";font=LOGFONT(h=-16);textPadding={bottom=1};z=2};
 editPacUrl={cls="plus";left=340;top=416;right=659;bottom=440;align="left";bgcolor=16777215;border={bottom=1;color=-8355712};db=1;dl=1;editable="edit";font=LOGFONT(h=-16);textPadding={bottom=1};z=9};
@@ -22,6 +23,7 @@ import style;
 winform.checkLan.skin(style.checkBox);  
 winform.chkAutoPort.skin(style.checkBox);
 winform.chkAutoPacPort.skin(style.checkBox);
+winform.chkEnableGitConfigGithub.skin(style.checkBox);  
 winform.btnUpdate.skin(style.primaryButton);
 winform.editPort.skin(style.edit);
 winform.editPacPort.skin(style.edit);
@@ -34,6 +36,7 @@ var onConfigJsonUpdate = function(){
 	winform.checkLan.checked = config.core.default.inbounds[1]["listen"] !== "127.0.0.1"
 	winform.chkAutoPort.checked = ! config.core.default.inbounds[1]["port"]
 	winform.chkAutoPacPort.checked =  ! config.core.default.inbounds[1]["pacPort"] 
+	winform.chkEnableGitConfigGithub.checked = config.proxy.enableGitConfigGithub;
 	winform.editPort.disabled = winform.chkAutoPort.checked
 	winform.editPacPort.disabled = winform.chkAutoPacPort.checked
 	winform.editPacUrl.text = v2ray.core.getPacUrl();
@@ -48,6 +51,7 @@ subscribe("config.proxy.core.config.json.changed",function(){
     onConfigJsonUpdate();
 })  
 
+import process.popen;
 import wsock.tcp.client;
 winform.btnUpdate.oncommand = function(id,event){
 	winform.btnUpdate.disabledText = {'\uF254';'\uF251';'\uF252';'\uF253';'\uF250'};
@@ -86,6 +90,17 @@ winform.btnUpdate.oncommand = function(id,event){
 	else {
 		config.core.default.inbounds[1]["pacPort"]  = 0;
 	}
+	
+	if(winform.chkEnableGitConfigGithub.checked!=config.proxy.enableGitConfigGithub){
+		config.proxy.enableGitConfigGithub = winform.chkEnableGitConfigGithub.checked;
+			
+		if(!config.proxy.enableGitConfigGithub){
+			v2ray.core.updateGitConfigGithub(false);		
+		} 
+		else {
+			v2ray.core.updateGitConfigGithub(null);	
+		}
+	} 
 	
 	var restartCore = false;
 	var port = !winform.chkAutoPort.checked ? tonumber(winform.editPort.text) : 0

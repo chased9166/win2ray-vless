@@ -38,7 +38,7 @@ namespace style{
 		} 	
 	};
 	radio ={
-		group = "PinyinMix";
+		group = "default";
 		color = { 
 			hover = 0xFFFF0000; 
 			active = 0xFF00FF00;

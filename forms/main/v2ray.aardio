@@ -443,6 +443,8 @@ subscribe("config.proxy.mode.changed",function(...){
 	else{
 		frmV2ray.radioProxyDirect.checked = true;
 	}	
+	
+	v2ray.core.updateGitConfigGithub();
 } )
 publish("config.proxy.mode.changed");
 
@@ -460,6 +462,7 @@ var updatProxySetting = function(){
 		inet.conn.setProxy();	
 	}
 	
+	v2ray.core.updateGitConfigGithub();
 	config.proxy.save();
 }
 frmV2ray.radioProxyPac.oncommand = updatProxySetting;
@@ -480,6 +483,9 @@ frmV2ray.btnEditPac.oncommand = function(id,event){
 	frmPac = frmV2ray.loadForm("\forms\main\pac.aardio");
 	frmPac.show();
 }
+subscribe("showPacForm",function(...){
+	frmV2ray.btnEditPac.oncommand();
+} )
 
 frmV2ray.btnImportServerFromClipBd.skin(style.plainButton)
 frmV2ray.btnImportServerFromClipBd.oncommand = function(id,event){
