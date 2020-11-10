@@ -12,6 +12,9 @@ vless://5a6c2d47-0c61-ac54-a4d4-c1fc314ea38e@jp.vulvpstech.xyz:443/?flow=xtls-rp
 vless://f5859dd8-95aa-6f5a-8d5a-0829d43b86e3@jp.vulvpstech.xyz:443/?host=jp.vulvpstech.xyz&tls=tls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_TLS
 vless://f5859dd8-95aa-6f5a-8d5a-0829d43b86e3@jp.vulvpstech.xyz:443/?host=jp.vulvpstech.xyz&network=ws&path=%2Fubdiws&sni=jp.vulvpstech.xyz&tls=tls#%E6%97%A5%E6%9C%AC%E4%B8%9C%E4%BA%AC_WSS
 </pre></details>  
+
+自建服务器推荐点 [https://www.vultr.com/?ref=8721683-6G](https://www.vultr.com/?ref=8721683-6G) 注册vultr，新用户赠送$100美元。  
+[一键搭建 vless 服务器脚本 https://github.com/search?q=vless+%E8%84%9A%E6%9C%AC ](https://github.com/search?q=vless+%E8%84%9A%E6%9C%AC)  
   
 之前我用过很多类似的代理客户端，经常用一会就挂掉了，有些来来回回测试很久才找到下一个可用的服务器，而且有时候怎么切换都不行，一定要把整个软件退出重启才能恢复。而且很多类似软件在WIN10上有一个奇怪的BUG - PAC代理用一段时间就会卡死一定要来回切换代理设置才能正常，其实这些软件里提供的很多功能我并不需要，我只想简单稳定的用下 google 找点技术资料提升下工作效率。但是在网上找了很久都没找到，所以决定自己动手写一个，还好用 aardio 写软件的速度很快 - 大概用了几个小时就完成了 win2ray 的主要代码，改进了几个版本以后就很稳定了，我自己用了 win2ray  几个月再也没有遇到 google 抽风访问不了的问题。  
 
